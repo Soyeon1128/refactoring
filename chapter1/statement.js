@@ -1,3 +1,5 @@
+const plays = require('./plays.json');
+
 module.exports = function statement(invoice, plays) {
   let totalAmount = 0;
   let volumeCredits = 0;
@@ -10,7 +12,7 @@ module.exports = function statement(invoice, plays) {
   }).format;
 
   for (let perf of invoice.performances) {
-    const play = plays[perf.playID];
+    const play = playFor(perf);
     let thisAmount = amountFor(perf, play);
     
     // 포인트 적립
@@ -27,6 +29,11 @@ module.exports = function statement(invoice, plays) {
   result += `적립 포인트: ${volumeCredits}점\n`;
 
   return result;
+}
+
+// 공연정보 가져오기
+function playFor(perf) {
+  return plays[perf.playID];
 }
 
 // 공연별 요금 계산
