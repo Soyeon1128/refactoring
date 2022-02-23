@@ -12,12 +12,7 @@ module.exports = function statement(invoice, plays) {
   }).format;
 
   for (let perf of invoice.performances) {
-    // 포인트 적립
-    volumeCredits += Math.max(perf.audience - 30, 0);
-    // 희극 관객 5명마다 추가 포인트 제공 (내림 근삿값)
-    if ('comedy' === playFor(perf).type) volumeCredits += Math.floor(perf.audience / 5);
-    
-    // 청구 내역 출력
+    volumeCredits += volumeCreditsFor(perf);
     result += ` ${playFor(perf).name}: ${format(amountFor(perf)/100)} (${perf.audience}석)\n`;
     totalAmount += amountFor(perf);
   }
@@ -31,6 +26,14 @@ module.exports = function statement(invoice, plays) {
 // 공연정보 가져오기
 function playFor(perf) {
   return plays[perf.playID];
+}
+
+// 포인트 계산
+function volumeCreditsFor(aPerformance) {
+  let result = 0;
+  result += Math.max(aPerformance.audience - 30, 0);
+  if ('comedy' === playFor(aPerformance).type) result += Math.floor(aPerformance.audience / 5);
+  return result;
 }
 
 // 공연별 요금 계산
