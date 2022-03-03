@@ -1,4 +1,4 @@
-{
+export default {
   "hamlet": {
     "name": "Hamlet",
     "type": "tragedy"
