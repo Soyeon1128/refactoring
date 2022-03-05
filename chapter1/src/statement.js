@@ -25,15 +25,6 @@ export const statementHtml = (invoice, plays) => {
     result += 
 `<p>적립 포인트: <em>${data.totalVolumeCredits}점</em></p>\n`;
     return result;
-  
-    // USD 단위로 포맷팅
-    function usd(aNumber) {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minumumFractionDigits: 2
-      }).format(aNumber/100);
-    }
   }
 }
 
@@ -48,16 +39,16 @@ export const statement = (invoice, plays) => {
     result += `총액: ${usd(data.totalAmount)}\n`;
     result += `적립 포인트: ${data.totalVolumeCredits}점\n`;
     return result;
-  
-    // USD 단위로 포맷팅
-    function usd(aNumber) {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minumumFractionDigits: 2
-      }).format(aNumber/100);
-    }
   }
+}
+
+// USD 단위로 포맷팅
+function usd(aNumber) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minumumFractionDigits: 2
+  }).format(aNumber/100);
 }
 
 class PerformanceCalculator {
